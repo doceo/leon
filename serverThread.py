@@ -66,7 +66,7 @@ class ServerThread(threading.Thread):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
         # Bind the socket to the port
-        server_address = ('localhost', 3332)
+        server_address = ('localhost', 3331)
         print >>sys.stderr, 'starting up on %s port %s' % server_address
         sock.bind(server_address)
         
@@ -120,12 +120,14 @@ if __name__=='__main__':
 			#print server.getValue()
 			if(server.getValue() == -1):
 				print askThread(server)
-
-				
 				server.stop()
 				break
 			else:
-				#print server.getValue()
+				if(conSerial() == 1):
+					invia(askThread(server))
+				else: 
+					print "arduino non connesso"
+
 				server.stop()
 				break
     
