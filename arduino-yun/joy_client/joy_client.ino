@@ -3,8 +3,9 @@
 #include <Bridge.h>
 #include <HttpClient.h>
 
-String server = "192.168.1.71";
-String porta = "8888";
+
+String server = "192.168.1.97";
+String porta = "3333";
 String url;
 
 int X = 10;    
@@ -32,12 +33,13 @@ void loop() {
 
   parametri = acq(X, Y, tap);
   
-  url = "http://" + server + ":" + porta;
-
-  Serial.println(url);
+  url = "GET http://" + server + ":" + porta + "/" + parametri + " HTTP/1.1\n";
+  url = url + "Host: "+ server + ":" + porta + "\n" + "Connection: close";
 
   client.get(url);
-  delay(50);
+  Serial.println(url);
+
+  delay(3000);
 }
 
 
